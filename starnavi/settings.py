@@ -135,7 +135,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # ckeditor
 
-CKEDITOR_UPLOAD_PATH = ''
+CKEDITOR_UPLOAD_PATH = 'uploads/'
 
 CKEDITOR_CONFIG = {
     'ckeditor_post': {
