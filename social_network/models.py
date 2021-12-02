@@ -2,14 +2,13 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 
-
 class User(AbstractUser):
     pass
 
 
 class Post(models.Model):
     """Post model"""
-    user = models.ForeignKey(User, on_delete=models.CASCADE, 
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, 
                             related_name='posts')
     created = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=255, blank=False)
