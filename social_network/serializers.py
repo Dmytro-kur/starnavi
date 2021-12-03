@@ -2,19 +2,20 @@ from rest_framework import serializers
 from .models import User, Post, Like, Activity
 
 
-class PostSerializer(serializers.ModelSerializer):
+class PostSerializer(serializers.HyperlinkedModelSerializer):
     """Create and update new post"""
-
+    owner = serializers.ReadOnlyField(source='owner.username')
     class Meta:
         model = Post
         fields = ['owner', 'created', 'title', 'content']
 
-class UserSerializer(serializers.ModelSerializer):
-    posts = serializers.PrimaryKeyRelatedField(
-        many=True, 
-        queryset=Post.objects.all()
-    )
 
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    posts = serializers.HyperlinkedRelatedField(
+        many=True, 
+        view_name='post-detail',
+        read_only=True,
+    )
     class Meta:
         model = User
-        fields = ['id', 'username', 'posts']
+        fields = ['url', 'id', 'username', 'posts']
